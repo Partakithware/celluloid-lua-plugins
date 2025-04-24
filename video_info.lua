@@ -95,7 +95,7 @@ local function show_page()
     overlay:update()
 end
 
--- F2 toggler
+-- TAB toggler
 local function cycle_info()
     page = page + 1
     if page > total_pages then
@@ -104,5 +104,5 @@ local function cycle_info()
     show_page()
 end
 
--- Bind F2
-mp.add_key_binding("F2", "toggle_media_info", cycle_info)
+-- Bind TAB
+mp.add_key_binding("TAB", "toggle_media_info", cycle_info)
