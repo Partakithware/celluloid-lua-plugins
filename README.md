@@ -14,7 +14,7 @@ Color Matrix: bt.709
 Primaries: bt.709
 Display FPS: 23.976000
 Duration: 2705.560000
-Bitrate: 65282
+Bitrate: 1147 kbps
 ```
 ```
 [Audio]
@@ -22,7 +22,7 @@ Codec: AAC (Advanced Audio Coding)
 Sample Rate: 48000
 Channels: 2
 Format: floatp
-Bitrate: 96141
+Bitrate: 96 kbps
 ```
 ```
 [File]
