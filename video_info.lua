@@ -26,7 +26,14 @@ local function add(info, label, prop)
     local val = mp.get_property(prop)
     if val then
         if prop == "duration" then
-            val = format_duration(val) -- Format the duration to minutes:seconds
+            val = format_duration(val)
+        elseif prop == "video-bitrate" or prop == "audio-bitrate" then
+            val = tonumber(val)
+            if val then
+                val = string.format("%d kbps", math.floor(val / 1000))
+            else
+                val = "Unavailable"
+            end
         end
         table.insert(info, string.format("%s: %s", label, val))
     else
