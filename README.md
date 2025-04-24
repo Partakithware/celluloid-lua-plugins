@@ -28,6 +28,7 @@ Bitrate: 96141
 [File]
 File Path: /your/files/path/examplevideo.mkv
 File Size: 346240750
+Overall Bitrate: 947 kbps
 ```
 ```
 [Subtitles]
