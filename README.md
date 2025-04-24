@@ -2,7 +2,7 @@
 Plugins for celluloid-player
 
 # video_info.lua
-Press F2 to open and cycle through basic file information of the current file like you would typically see in other media-players.
+Press TAB to open and cycle through basic file information of the current file like you would typically see in other media-players.
 Example of information displayed:
 ```
 [Video]
