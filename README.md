@@ -8,10 +8,12 @@ Example of information displayed:
 [Video]
 File Format: mkv
 Codec: H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10
+Pixel Format: yuv420p
 Width: 1280
 Height: 720
 Color Matrix: bt.709
 Primaries: bt.709
+Gamma: bt.1886
 Display FPS: 23.976000
 Duration: 2705.560000
 Bitrate: 1147 kbps
