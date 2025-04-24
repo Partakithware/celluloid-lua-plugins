@@ -45,6 +45,7 @@ local function get_video_info()
     add(info, "Primaries", "video-params/primaries")
     add(info, "Display FPS", "container-fps")
     add(info, "Duration", "duration")
+    add(info, "Bitrate", "video-bitrate")
     return info
 end
 
