@@ -46,10 +46,12 @@ local function get_video_info()
     local info = {"[Video]"}
     add(info, "File Format", "file-format")
     add(info, "Codec", "video-codec")
+    add(info, "Pixel Format", "video-params/pixelformat")
     add(info, "Width", "width")
     add(info, "Height", "height")
     add(info, "Color Matrix", "video-params/colormatrix")
     add(info, "Primaries", "video-params/primaries")
+    add(info, "Gamma", "video-params/gamma")
     add(info, "Display FPS", "container-fps")
     add(info, "Duration", "duration")
     add(info, "Bitrate", "video-bitrate")
@@ -146,9 +148,13 @@ local function show_page()
     overlay:update()
 
     -- Start update loop if not off
-    update_timer = mp.add_timeout(1, function()
-        show_page() -- recursive trigger for periodic update
-    end)
+  -- Get the current video framerate, fallback to 1 if unavailable
+local fps = tonumber(mp.get_property("container-fps")) or 1
+local interval = 1 / fps
+
+update_timer = mp.add_timeout(interval, function()
+    show_page() -- recursive trigger for periodic update
+end)
 end
 
 -- TAB toggler
