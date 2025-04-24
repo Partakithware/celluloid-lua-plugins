@@ -30,7 +30,8 @@ File Size: 346240750
 ```
 ```
 [Subtitles]
-Subtitle Language: eng
+Track 1 [eng] - You have a subtitle track!
+Track 2 [und] - ruwoeruwoiriworwuior!
 ```
 
 That is all it does so far and is the only plugin available here for now. Hope it can be of some use for gathering/viewing basic info.
