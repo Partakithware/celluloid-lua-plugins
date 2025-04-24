@@ -1,18 +1,29 @@
 local page = 0
 local total_pages = 5
-local display_duration = 3600 -- long enough to manually clear
+local overlay = mp.create_osd_overlay("ass-events")
 
--- Helper function with debug
+-- Helper to style and add text
+local function ass_format(lines)
+    local ass = require 'mp.assdraw'
+    local a = ass.ass_new()
+    a:new_event()
+    a:append("{\\fs20\\b1}") -- Bigger and bold
+    for _, line in ipairs(lines) do
+        a:append(line .. "\\N")
+    end
+    return a.text
+end
+
 local function add(info, label, prop)
     local val = mp.get_property(prop)
     if val then
         table.insert(info, string.format("%s: %s", label, val))
     else
-        mp.msg.warn(string.format("Property %s is unavailable", prop)) -- Debug log
+        mp.msg.warn(string.format("Property %s is unavailable", prop))
     end
 end
 
--- Basic Video info
+-- Info generators
 local function get_video_info()
     local info = {"[Video]"}
     add(info, "File Format", "file-format")
@@ -23,19 +34,17 @@ local function get_video_info()
     add(info, "Color Matrix", "video-params/colormatrix")
     add(info, "Primaries", "video-params/primaries")
     add(info, "Display FPS", "container-fps")
-    add(info, "Duration", "duration")  
-    return table.concat(info, "\n")
+    add(info, "Duration", "duration")
+    return info
 end
 
--- Dev-grade Video info
 local function get_dev_video_info()
     local info = {"[File]"}
     add(info, "File Path", "path")
     add(info, "File Size", "file-size")
-    return table.concat(info, "\n")
+    return info
 end
 
--- Audio info
 local function get_audio_info()
     local info = {"[Audio]"}
     add(info, "Codec", "audio-codec")
@@ -43,32 +52,36 @@ local function get_audio_info()
     add(info, "Channels", "audio-params/channel-count")
     add(info, "Format", "audio-params/format")
     add(info, "Bitrate", "audio-bitrate")
-    return table.concat(info, "\n")
+    return info
 end
 
--- Subtitles info
 local function get_sub_info()
     local info = {"[Subtitles]"}
     add(info, "Subtitle Language", "current-tracks/sub/lang")
-    return table.concat(info, "\n")
+    return info
 end
 
 -- Page router
 local function show_page()
+    local content
     if page == 1 then
-        mp.osd_message(get_video_info(), display_duration)
+        content = get_video_info()
     elseif page == 2 then
-        mp.osd_message(get_audio_info(), display_duration)
+        content = get_audio_info()
     elseif page == 3 then
-        mp.osd_message(get_dev_video_info(), display_duration)
+        content = get_dev_video_info()
     elseif page == 4 then
-        mp.osd_message(get_sub_info(), display_duration)
+        content = get_sub_info()
     elseif page == 5 then
-        mp.osd_message("", 0) -- clear screen
+        overlay:remove()
+        return
     end
+
+    overlay.data = ass_format(content)
+    overlay:update()
 end
 
--- F2 to cycle through info
+-- F2 toggler
 local function cycle_info()
     page = page + 1
     if page > total_pages then
