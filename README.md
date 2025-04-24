@@ -34,7 +34,7 @@ File Size: 346240750
 Subtitle Language: eng
 ```
 
-That is all it does and the only plugin I made so. Hope it can be of some use for gathering/viewing basic info.
+That is all it does so far and is the only plugin available here for now. Hope it can be of some use for gathering/viewing basic info.
 
 
 
