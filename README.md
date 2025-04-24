@@ -10,7 +10,6 @@ File Format: mkv
 Codec: H.264 / AVC / MPEG-4 AVC / MPEG-4 part 10
 Width: 1280
 Height: 720
-Container: mkv (whoops double and not needed I suppose will remove later)
 Color Matrix: bt.709
 Primaries: bt.709
 Display FPS: 23.976000
