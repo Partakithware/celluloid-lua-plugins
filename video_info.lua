@@ -1,6 +1,7 @@
 local page = 0
 local total_pages = 5
 local overlay = mp.create_osd_overlay("ass-events")
+local update_timer = nil
 
 -- Helper to style and add text
 local function ass_format(lines)
@@ -87,6 +88,16 @@ end
 
 -- Page router
 local function show_page()
+    if update_timer then
+        update_timer:kill()
+        update_timer = nil
+    end
+
+    if page == 5 then
+        overlay:remove()
+        return
+    end
+
     local content
     if page == 1 then
         content = get_video_info()
@@ -96,13 +107,15 @@ local function show_page()
         content = get_dev_video_info()
     elseif page == 4 then
         content = get_sub_info()
-    elseif page == 5 then
-        overlay:remove()
-        return
     end
 
     overlay.data = ass_format(content)
     overlay:update()
+
+    -- Start update loop if not off
+    update_timer = mp.add_timeout(1, function()
+        show_page() -- recursive trigger for periodic update
+    end)
 end
 
 -- TAB toggler
