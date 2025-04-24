@@ -14,9 +14,19 @@ local function ass_format(lines)
     return a.text
 end
 
+local function format_duration(seconds)
+    --local minutes = math.floor(seconds / 60)
+    --local remaining_seconds = math.floor(seconds % 60)
+    --return string.format("%02d:%02d", minutes, remaining_seconds)
+    return string.format(seconds)
+end
+
 local function add(info, label, prop)
     local val = mp.get_property(prop)
     if val then
+        if prop == "duration" then
+            val = format_duration(val) -- Format the duration to minutes:seconds
+        end
         table.insert(info, string.format("%s: %s", label, val))
     else
         mp.msg.warn(string.format("Property %s is unavailable", prop))
