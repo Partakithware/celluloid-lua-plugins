@@ -56,7 +56,22 @@ end
 
 local function get_sub_info()
     local info = {"[Subtitles]"}
-    add(info, "Subtitle Language", "current-tracks/sub/lang")
+    local tracks_json = mp.get_property_native("track-list")
+
+    if tracks_json then
+        for _, track in ipairs(tracks_json) do
+            if track.type == "sub" then
+                local lang = track.lang or "und"
+                local codec = track.codec or "unknown"
+                local title = track.title or ""
+                local id = track.id or "?"
+                table.insert(info, string.format("Track %d [%s] - %s (%s)", id, lang, codec, title))
+            end
+        end
+    else
+        table.insert(info, "No subtitle tracks found.")
+    end
+
     return info
 end
 
