@@ -49,13 +49,6 @@ local function get_video_info()
     return info
 end
 
-local function get_dev_video_info()
-    local info = {"[File]"}
-    add(info, "File Path", "path")
-    add(info, "File Size", "file-size")
-    return info
-end
-
 local function get_audio_info()
     local info = {"[Audio]"}
     add(info, "Codec", "audio-codec")
@@ -82,6 +75,38 @@ local function get_sub_info()
         end
     else
         table.insert(info, "No subtitle tracks found.")
+    end
+
+    return info
+end
+
+local function get_overall_bitrate()
+    local size_str = mp.get_property("file-size")
+    local duration_str = mp.get_property("duration")
+
+    if not size_str or not duration_str then
+        return nil
+    end
+
+    local size = tonumber(size_str)
+    local duration = tonumber(duration_str)
+
+    if not size or not duration or duration <= 0 then
+        return nil
+    end
+
+    local bitrate = math.floor((size * 8) / duration)
+    return string.format("%d kbps", math.floor(bitrate / 1000))
+end
+
+local function get_dev_video_info()
+    local info = {"[File]"}
+    add(info, "File Path", "path")
+    add(info, "File Size", "file-size")
+
+    local avg_bitrate = get_overall_bitrate()
+    if avg_bitrate then
+        table.insert(info, string.format("Overall Bitrate: %s", avg_bitrate))
     end
 
     return info
