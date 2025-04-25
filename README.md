@@ -80,4 +80,6 @@ etc: something else
 etc: another thing
 ```
 </details>
+
+
 That is all for now. No other plugins yet available here.
