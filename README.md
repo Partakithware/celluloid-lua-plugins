@@ -2,6 +2,9 @@
 Plugins for [Celluloid Player](https://github.com/celluloid-player/celluloid), powered by MPV and Lua.
 
 
+If you want to write your own Lua scripts, have a look at the documentation of mpv's Lua interface. (https://mpv.io/manual/master/#lua-scripting)
+
+
 Want your plugin listed here? Let me know and I will update the readme to link to your repo asap! Discord: https://discord.gg/YNp6T7vZxm
 
 <details>
