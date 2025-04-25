@@ -23,7 +23,7 @@ Color Matrix: bt.709
 Primaries: bt.709
 Gamma: bt.1886
 Color Levels: limited
-Chroma Location: left
+Chroma Location: mpeg2/4/h264
 Display FPS: 23.976
 Duration: 2705.560
 Bitrate: 1147 kbps
