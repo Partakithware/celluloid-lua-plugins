@@ -1,8 +1,7 @@
 local page = 0
-local total_pages = 5
+local total_pages = 7
 local overlay = mp.create_osd_overlay("ass-events")
 local update_timer = nil
-
 -- Helper to style and add text
 local function ass_format(lines)
     local ass = require 'mp.assdraw'
@@ -52,9 +51,13 @@ local function get_video_info()
     add(info, "Color Matrix", "video-params/colormatrix")
     add(info, "Primaries", "video-params/primaries")
     add(info, "Gamma", "video-params/gamma")
+    add(info, "Color Levels", "video-params/colorlevels")
+    add(info, "Chroma Location", "video-params/chroma-location")
+    -- add(info, "Chroma Subsampling", "av_chroma_location_enum_to_pos")
     add(info, "Display FPS", "container-fps")
     add(info, "Duration", "duration")
     add(info, "Bitrate", "video-bitrate")
+    add(info, "Average-bits-per-pixel", "video-params/average-bpp")  
     return info
 end
 
@@ -117,9 +120,50 @@ local function get_dev_video_info()
     if avg_bitrate then
         table.insert(info, string.format("Overall Bitrate: %s", avg_bitrate))
     end
+    add(info, "Hardware Decoding", "hwdec-current")
+    add(info, "Storage Aspect Ratio", "video-params/sar-name")
+    add(info, "Pixel Aspect Ratio", "video-params/par-name")
+    add(info, "Light Type", "video-params/light")
+    add(info, "MinLuma", "video-params/min-luma")
+    add(info, "MaxLuma", "video-params/min-luma")
+    add(info, "Max-Content-Light-Level", "video-params/max-cll")
+    add(info, "Max-Frame-Average-LightLevel", "video-params/max-fall")
+    
+    return info
+end
+
+local function get_frame_info()
+    local info = {"[Frame]"}
+    add(info, "Picture Type", "video-frame-info/picture-type")
+    add(info, "Interlaced", "video-frame-info/interlaced")
+    add(info, "Top-Field-First", "video-frame-info/tff")
+    add(info, "GOP Timecode", "video-frame-info/gop-timecode")
+    add(info, "SMPTE Timecode", "video-frame-info/smpte-timecode")
+    return info
+end
+
+local function get_file_metadata()
+    local info = {"[File Metadata]"}
+    local count = tonumber(mp.get_property("metadata/list/count")) or 0
+    local found = false
+
+    for i = 0, count - 1 do
+        local key = mp.get_property(string.format("metadata/list/%d/key", i))
+        local value = mp.get_property(string.format("metadata/list/%d/value", i))
+        if key and value then
+            table.insert(info, string.format("%s: %s", key, value))
+            found = true
+        end
+    end
+
+    if not found then
+        table.insert(info, "(No metadata found)")
+    end
 
     return info
 end
+
+
 
 -- Page router
 local function show_page()
@@ -128,10 +172,11 @@ local function show_page()
         update_timer = nil
     end
 
-    if page == 5 then
+    if page == 7 then
         overlay:remove()
         return
     end
+
 
     local content
     if page == 1 then
@@ -142,6 +187,10 @@ local function show_page()
         content = get_dev_video_info()
     elseif page == 4 then
         content = get_sub_info()
+    elseif page == 5 then
+        content = get_frame_info()
+    elseif page == 6 then
+        content = get_file_metadata()
     end
 
     overlay.data = ass_format(content)
