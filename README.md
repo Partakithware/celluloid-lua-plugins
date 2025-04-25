@@ -70,5 +70,8 @@ title: Example Movie Title
 artist: Some Artist
 genre: Action
 encoder: examplemetimbers45
+etc: something
+etc: something else
+etc: another thing
 ```
 That is all for now. No other plugins yet available here.
