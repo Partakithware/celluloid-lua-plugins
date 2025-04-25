@@ -1,6 +1,6 @@
 # celluloid-lua-plugins
 Plugins for [Celluloid Player](https://github.com/celluloid-player/celluloid), powered by MPV and Lua.
-
+Want your plugin listed here? Let me know and I will update the readme to link to your repo asap! Discord: https://discord.gg/YNp6T7vZxm
 ## `video_info.lua`
 Displays in-depth media information as on-screen text overlays (OSD) in a cycling format.  
 Press `TAB` to toggle through different pages of detailed file info.
