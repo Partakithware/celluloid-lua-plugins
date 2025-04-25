@@ -7,6 +7,9 @@ If you want to write your own Lua scripts, have a look at the documentation of m
 
 Want your plugin listed here? Let me know and I will update the readme to link to your repo asap! Discord: https://discord.gg/YNp6T7vZxm
 
+
+Celluloid should work with some/most mpv plugins and you can find them here [MPV Plugins](https://github.com/mpv-player/mpv/wiki/User-Scripts) 
+
 <details>
 <summary>video_info.lua - click to view information on the plugin</summary>
 
