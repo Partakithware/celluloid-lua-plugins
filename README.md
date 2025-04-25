@@ -1,9 +1,17 @@
 # celluloid-lua-plugins
-Plugins for celluloid-player
+Plugins for [Celluloid Player](https://github.com/celluloid-player/celluloid), powered by MPV and Lua.
 
-# video_info.lua
-Press TAB to open and cycle through basic file information of the current file like you would typically see in other media-players.
-Example of information displayed:
+## `video_info.lua`
+Displays in-depth media information as on-screen text overlays (OSD) in a cycling format.  
+Press `TAB` to toggle through different pages of detailed file info.
+
+---
+
+### 🔁 Pages of Information
+Each press of `TAB` cycles to the next page. After the last page, pressing `TAB` again hides the overlay.
+
+---
+Example: Does not reflect information actually seen, depending on the file you may see more of less in some sections.
 ```
 [Video]
 File Format: mkv
@@ -14,9 +22,12 @@ Height: 720
 Color Matrix: bt.709
 Primaries: bt.709
 Gamma: bt.1886
-Display FPS: 23.976000
-Duration: 2705.560000
+Color Levels: limited
+Chroma Location: left
+Display FPS: 23.976
+Duration: 2705.560
 Bitrate: 1147 kbps
+Average-bits-per-pixel: 0.063
 ```
 ```
 [Audio]
@@ -31,14 +42,33 @@ Bitrate: 96 kbps
 File Path: /your/files/path/examplevideo.mkv
 File Size: 346240750
 Overall Bitrate: 947 kbps
+Hardware Decoding: yes
+Storage Aspect Ratio: 16:9
+Pixel Aspect Ratio: 1:1
+Light Type: unknown
+MinLuma: 0
+MaxLuma: 255
+Max-Content-Light-Level: 1000
+Max-Frame-Average-LightLevel: 400
 ```
 ```
 [Subtitles]
-Track 1 [eng] - You have a subtitle track!
-Track 2 [und] - ruwoeruwoiriworwuior!
+Track 1 [eng] - subrip (You have a subtitle track!)
+Track 2 [und] - vtt (ruwoeruwoiriworwuior!)
 ```
-
-That is all it does so far and is the only plugin available here for now. Hope it can be of some use for gathering/viewing basic info.
-
-
-
+```
+[Frame]
+Picture Type: I
+Interlaced: no
+Top-Field-First: unknown
+GOP Timecode: 00:00:00:00
+SMPTE Timecode: 00:00:00:00
+```
+```
+[File Metadata]
+title: Example Movie Title
+artist: Some Artist
+genre: Action
+encoder: examplemetimbers45
+```
+That is all for now. No other plugins yet available here.
